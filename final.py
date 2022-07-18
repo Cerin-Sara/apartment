@@ -163,8 +163,8 @@ def get_construction_type(dom):             #get the construction type of the li
         print(construction_type)
 
     except Exception as e:                   #if the construction type is not found, print the error message
-        type="Type is not available"
-        print(type)
+        construction_type="Type is not available"
+        print(construction_type)
 
 def get_constructed_year(dom):               #get the constructed year of the listing
     try:                                     #try to get the constructed year
@@ -173,8 +173,17 @@ def get_constructed_year(dom):               #get the constructed year of the li
         print(constructed_year)
 
     except Exception as e:                  #if the constructed year is not found, print the error message
-        type="Type is not available"
-        print(type)
+        constructed_year="Type is not available"
+        print(constructed_year)
+
+def get_location_type(dom):                 #get the location type of the listing
+    try:                                    #try to get the location type
+        location_type=dom.xpath("//dd[@class='listing-features__description listing-features__description--situations']/span/text()")[0]
+        print(location_type)
+
+    except Exception as e:                  #if the location type is not found, print the error message
+        location_type="Location type is not available"
+        print(location_type)
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -195,3 +204,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_type(listing_dom)   #calling the get_type() to execute the scraping of type
     get_construction_type(listing_dom)   #calling the get_construction_type() to execute the scraping of construction type
     get_constructed_year(listing_dom)   #calling the get_constructed_year() to execute the scraping of constructed year
+    get_location_type(listing_dom)   #calling the get_location_type() to execute the scraping of location type

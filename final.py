@@ -129,11 +129,21 @@ def get_upkeep_status(dom):             #get the upkeeping status of the listing
     try:                                #try to get the upkeeping status
         upkeep=dom.xpath("//dd[@class='listing-features__description listing-features__description--upkeep']/span/text()")
         upkeep=upkeep[0]
-        print(upkeep,'upkeep')
+        print(upkeep)
 
     except Exception as e:              #if the upkeeping status is not found, print the error message
         upkeep = "Upkeep is not available"
         print(upkeep)
+
+def get_volume(dom):                       #get the volume of the listing
+    try:                                    #try to get the volume
+        volume= dom.xpath("//dd[@class='listing-features__description listing-features__description--volume']/span/text()")
+        volume=volume[0].split(" ")[0]
+        print(volume)
+
+    except Exception as e:                  #if the volume is not found, print the error message
+        volume="Volume is not available"
+        print(volume)
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -150,3 +160,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_availability(listing_dom)   #calling the get_availability() to execute the scraping of availability
     get_specification(listing_dom)   #calling the get_specification() to execute the scraping of specification
     get_upkeep_status(listing_dom)   #calling the get_upkeep_status() to execute the scraping of upkeeping status
+    get_volume(listing_dom)   #calling the get_volume() to execute the scraping of volume

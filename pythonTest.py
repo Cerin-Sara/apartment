@@ -11,3 +11,9 @@ soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
+
+
+
+
+
+

@@ -10,10 +10,11 @@ listing_response=requests.get(page_url, headers=header)
 soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
 
-# def get_interior():
+# def get_description(dom):
 #     try:
-#         interior = dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--interior']/text()")
-#         interior = interior[0]
-#         print(interior)
-#     except  Exception as e:
-#         return "No interior"
+#         description = dom.xpath("//div[@class='listing-detail-description__additional listing-detail-description__additional--collapsed']/p/text()")
+#         description = description[0]
+#         print(description)
+#     except Exception as e:
+#         description= "Description is not available"
+

@@ -12,15 +12,15 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_details_of_storage(dom):
+def get_storage_description(dom):
     try:
-        storage=dom.xpath("//dd[@class='listing-features__description listing-features__description--storage']/span/text()")[0]
-        print(storage)
+        storage_description=dom.xpath("//dd[@class='listing-features__description listing-features__description--description']/span/text()")[0]
+        print(storage_description)
 
     except Exception as e:
-        storage="Details of storage is not available"
-        print(storage)
+        storage_description="Details of storage is not available"
+        print(storage_description)
 
 
-get_details_of_storage(dom)
+get_storage_description(dom)
 

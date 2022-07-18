@@ -239,6 +239,15 @@ def get_details_of_storage(dom):                #get the details of the storage 
         storage="Details of storage is not available"
         print(storage)
 
+def get_storage_description(dom):               #get the description of the storage of the listing
+    try:                                        #try to get the description of the storage
+        storage_description=dom.xpath("//dd[@class='listing-features__description listing-features__description--description']/span/text()")[0]
+        print(storage_description)
+
+    except Exception as e:                      #if the description of the storage is not found, print the error message
+        storage_description="Details of storage is not available"
+        print(storage_description)
+
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -266,3 +275,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_details_of_balcony(listing_dom)   #calling the get_details_of_balcony() to execute the scraping of details of balcony
     get_details_of_garden(listing_dom)   #calling the get_details_of_garden() to execute the scraping of details of garden
     get_details_of_storage(listing_dom)   #calling the get_details_of_storage() to execute the scraping of details of storage
+    get_storage_description(listing_dom)   #calling the get_storage_description() to execute the scraping of description of storage

@@ -221,6 +221,15 @@ def get_details_of_balcony(dom):                #get the details of the balcony 
         balcony="Details of balcony is not available"
         print(balcony)
 
+def get_details_of_garden(dom):                 #get the details of the garden of the listing
+    try:                                        #try to get the details of the garden
+        garden=dom.xpath("listing-features__description listing-features__description--garden")[0]
+        print(garden)
+
+    except Exception as e:                      #if the details of the garden is not found, print the error message
+        garden="Details of garden is not available"
+        print(garden)
+
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -246,3 +255,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_bathrooms(listing_dom)   #calling the get_bathrooms() to execute the scraping of number of bathrooms
     get_no_floors(listing_dom)   #calling the get_no_floors() to execute the scraping of number of floors
     get_details_of_balcony(listing_dom)   #calling the get_details_of_balcony() to execute the scraping of details of balcony
+    get_details_of_garden(listing_dom)   #calling the get_details_of_garden() to execute the scraping of details of garden

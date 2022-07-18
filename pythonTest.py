@@ -12,15 +12,15 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_details_of_balcony(dom):
+def get_details_of_garden(dom):
     try:
-        balcony=dom.xpath("//dd[@class='listing-features__description listing-features__description--balcony']/span/text()")[0]
-        print(balcony)
+        garden=dom.xpath("listing-features__description listing-features__description--garden")[0]
+        print(garden)
 
     except Exception as e:
-        balcony="Details of balcony is not available"
-        print(balcony)
+        garden="Details of garden is not available"
+        print(garden)
 
 
-get_details_of_balcony(dom)
+get_details_of_garden(dom)
 

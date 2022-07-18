@@ -96,11 +96,11 @@ def get_description(dom):           #get the description of the listing
         description= "Description is not available"
         print(description)
 
-def ordered_since(dom):         #get the date since the listing was added
+def offered_since(dom):         #get the date since the listing was added
     try:
-        order_since=dom.xpath("//dd[@class='listing-features__description listing-features__description--offered_since']/span/text()")
-        order_since=order_since[0]
-        print(order_since)
+        offer_since=dom.xpath("//dd[@class='listing-features__description listing-features__description--offered_since']/span/text()")
+        offer_since=offer_since[0]
+        print(offer_since)
     except Exception as e:          #if the date is not found, print the error message
         order_since= "Order since is not available"
         print(order_since)
@@ -114,6 +114,17 @@ def get_availability(dom):          #get the availability of the listing
     except Exception as e:              #if the availability is not found, print the error message
         print("Not available to book")
 
+def get_specification(dom):          #get the specification of the listing
+    try:                                #try to get the specification
+        specifics = dom.xpath("//dd[@class='listing-features__description listing-features__description--specifics']/span/text()")
+        specifics = specifics[0]
+        print(specifics)
+
+    except Exception as e:              #if the specification is not found, print the error message
+        specifics="Specifics are not available"
+        print(specifics)
+
+
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
@@ -125,5 +136,6 @@ for list_url in listing_url: #get the each link from the listing_url
     get_rooms(listing_dom)   #calling the get_rooms() to execute the scraping of rooms
     get_interior(listing_dom)   #calling the get_interior() to execute the scraping of interior
     get_description(listing_dom)   #calling the get_description() to execute the scraping of description
-    ordered_since(listing_dom)   #calling the ordered_since() to execute the scraping of order_since
+    offered_since(listing_dom)   #calling the ordered_since() to execute the scraping of order_since
     get_availability(listing_dom)   #calling the get_availability() to execute the scraping of availability
+    get_specification(listing_dom)   #calling the get_specification() to execute the scraping of specification

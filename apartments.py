@@ -50,4 +50,4 @@ while i <23:
 
 
 def time_delay():
-    time.sleep(random.randint(2, 5))
+    time.sleep(random.randint(1, 3))

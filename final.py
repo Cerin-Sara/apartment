@@ -166,6 +166,16 @@ def get_construction_type(dom):             #get the construction type of the li
         type="Type is not available"
         print(type)
 
+def get_constructed_year(dom):               #get the constructed year of the listing
+    try:                                     #try to get the constructed year
+        constructed_year=dom.xpath("//dd[@class='listing-features__description listing-features__description--construction_period']/span/text()")
+        constructed_year=constructed_year[0]
+        print(constructed_year)
+
+    except Exception as e:                  #if the constructed year is not found, print the error message
+        type="Type is not available"
+        print(type)
+
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
@@ -183,3 +193,5 @@ for list_url in listing_url: #get the each link from the listing_url
     get_upkeep_status(listing_dom)   #calling the get_upkeep_status() to execute the scraping of upkeeping status
     get_volume(listing_dom)   #calling the get_volume() to execute the scraping of volume
     get_type(listing_dom)   #calling the get_type() to execute the scraping of type
+    get_construction_type(listing_dom)   #calling the get_construction_type() to execute the scraping of construction type
+    get_constructed_year(listing_dom)   #calling the get_constructed_year() to execute the scraping of constructed year

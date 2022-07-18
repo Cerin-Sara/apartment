@@ -12,16 +12,16 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_construction_type(dom):
+def get_constructed_year(dom):
     try:
-        construction_type=dom.xpath("//dd[@class='listing-features__description listing-features__description--construction_type']/span/text()")
-        construction_type=construction_type[0]
-        print(construction_type)
+        constructed_year=dom.xpath("//dd[@class='listing-features__description listing-features__description--construction_period']/span/text()")
+        constructed_year=constructed_year[0]
+        print(constructed_year)
 
     except Exception as e:
         type="Type is not available"
         print(type)
 
 
-get_construction_type(dom)
+get_constructed_year(dom)
 

@@ -16,19 +16,13 @@ soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
 
 
-def get_title():
-    try:
-        title=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")
-        print(title[0])
+# def get_title():
+#     try:
+#         title=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")
+#         print(title[0])
 
-    except Exception as e:
-        title = "Title is not available"
-
-
-get_title()
-    
+#     except Exception as e:
+#         title = "Title is not available"
 
 
-
-
-
+# get_title()

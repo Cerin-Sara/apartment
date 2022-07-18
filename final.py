@@ -212,6 +212,15 @@ def get_no_floors(dom):                       #get the number of floors of the l
         no_floors="Number of floors is not available"
         print(no_floors)
 
+def get_details_of_balcony(dom):                #get the details of the balcony of the listing
+    try:                                        #try to get the details of the balcony
+        balcony=dom.xpath("//dd[@class='listing-features__description listing-features__description--balcony']/span/text()")[0]
+        print(balcony)
+
+    except Exception as e:                      #if the details of the balcony is not found, print the error message
+        balcony="Details of balcony is not available"
+        print(balcony)
+
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -236,3 +245,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_bedrooms(listing_dom)   #calling the get_bedrooms() to execute the scraping of number of bedrooms
     get_bathrooms(listing_dom)   #calling the get_bathrooms() to execute the scraping of number of bathrooms
     get_no_floors(listing_dom)   #calling the get_no_floors() to execute the scraping of number of floors
+    get_details_of_balcony(listing_dom)   #calling the get_details_of_balcony() to execute the scraping of details of balcony

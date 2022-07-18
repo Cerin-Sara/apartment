@@ -5,6 +5,7 @@ from csv import writer
 import time
 import random
 from lxml import etree as et
+import re
 
 header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Safari/537.36"}
 base_url= "https://www.pararius.com/apartments/amsterdam/page-"
@@ -40,9 +41,26 @@ def get_title(dom):    #get the title of the listing
 def get_location(dom):
     try:
         location= dom.xpath("//div[@class='listing-detail-summary__location']/text()")
-        print(location[0])
+        #print(location[0])
     except Exception as e:
         location = "Location is not available"
+
+def get_price(dom):
+    try:
+        price=dom.xpath("//div[@class='listing-detail-summary__price']//text()")
+        price_each=price[0]
+        price_each=price_each.replace('\n','')
+        price_each.strip()
+        price_list=price_each.split(',')
+        price_first=price_list[0]
+        price_second=price_list[1]
+        price_first=price_first[-1]
+        price_second=price_second[:3]
+        print(price_first+price_second)
+        
+        
+    except Exception as e:
+        price = "Price is not available"
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -50,3 +68,4 @@ for list_url in listing_url: #get the each link from the listing_url
     listing_dom = et.HTML(str(listing_soup))
     get_title(listing_dom)  #calling the get_title() to execute the scraping of title
     get_location(listing_dom)
+    get_price(listing_dom)

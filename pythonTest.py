@@ -5,6 +5,7 @@ from csv import writer
 import time
 import random
 from lxml import etree as et
+import re
 
 
 header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Safari/537.36"}
@@ -34,3 +35,23 @@ dom = et.HTML(str(soup))
 #         location = "Location is not available"
 
 #get_location()
+def get_price():
+    try:
+        price=dom.xpath("//div[@class='listing-detail-summary__price']//text()")
+        price_each=price[0]
+        price_each=price_each.replace('\n','')
+        price_each.strip()
+        price_list=price_each.split(',')
+        price_first=price_list[0]
+        price_second=price_list[1]
+        price_first=price_first[-1]
+        price_second=price_second[:3]
+        print(price_first+price_second)
+        
+        price=int(re.search(r'\d+', price_each).group())
+        
+        
+    except Exception as e:
+        price = "Price is not available"
+
+get_price()

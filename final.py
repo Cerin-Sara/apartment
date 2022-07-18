@@ -248,6 +248,27 @@ def get_storage_description(dom):               #get the description of the stor
         storage_description="Details of storage is not available"
         print(storage_description)
 
+def is_garage_present(dom):                     #check if the garage is present in the listing
+    try:                                        #try to check if the garage is present
+        is_garage_present=dom.xpath("//dd[@class='listing-features__description listing-features__description--available']/span/text()")[0]
+        print(is_garage_present)
+
+
+    except Exception as e:                      #if the garage is not present, print the error message
+        is_garage_present="Details of storage is not available"
+        print(is_garage_present)
+
+
+def get_contact_details(dom):                   #get the contact details of the listing
+    try:                                        #try to get the contact details
+        contact_details=dom.xpath("//a[@class='agent-summary__agent-contact-request']/@href")[0]
+        contact_details="https://www.pararius.com"+contact_details
+        print(contact_details)
+
+
+    except Exception as e:                      #if the contact details are not found, print the error message
+        contact_details="Details of contact is not available"
+        print(contact_details)
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -276,3 +297,5 @@ for list_url in listing_url: #get the each link from the listing_url
     get_details_of_garden(listing_dom)   #calling the get_details_of_garden() to execute the scraping of details of garden
     get_details_of_storage(listing_dom)   #calling the get_details_of_storage() to execute the scraping of details of storage
     get_storage_description(listing_dom)   #calling the get_storage_description() to execute the scraping of description of storage
+    is_garage_present(listing_dom)   #calling the is_garage_present() to execute the scraping of garage
+    get_contact_details(listing_dom)   #calling the get_contact_details() to execute the scraping of contact details

@@ -12,15 +12,17 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_storage_description(dom):
+def get_contact_details(dom):
     try:
-        storage_description=dom.xpath("//dd[@class='listing-features__description listing-features__description--description']/span/text()")[0]
-        print(storage_description)
+        contact_details=dom.xpath("//a[@class='agent-summary__agent-contact-request']/@href")[0]
+        contact_details="https://www.pararius.com"+contact_details
+        print(contact_details)
+
 
     except Exception as e:
-        storage_description="Details of storage is not available"
-        print(storage_description)
+        contact_details="Details of contact is not available"
+        print(contact_details)
 
 
-get_storage_description(dom)
+get_contact_details(dom)
 

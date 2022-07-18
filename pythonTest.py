@@ -26,3 +26,11 @@ dom = et.HTML(str(soup))
 
 
 # get_title()
+# def get_location():
+#     try:
+#         location= dom.xpath("//div[@class='listing-detail-summary__location']/text()")
+#         print(location[0])
+#     except Exception as e:
+#         location = "Location is not available"
+
+#get_location()

@@ -32,13 +32,21 @@ def get_title(dom):    #get the title of the listing
     try:                #try to get the title
         title=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")  #get the title using xpath
         title_each=title[0]
-        print(title_each[10:-13]) #slicing to get only the title of the apartment
+        #print(title_each[10:-13]) #slicing to get only the title of the apartment
 
     except Exception as e: #if the title is not found, print the error message
         title = "Title is not available"
+
+def get_location(dom):
+    try:
+        location= dom.xpath("//div[@class='listing-detail-summary__location']/text()")
+        print(location[0])
+    except Exception as e:
+        location = "Location is not available"
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
     listing_dom = et.HTML(str(listing_soup))
     get_title(listing_dom)  #calling the get_title() to execute the scraping of title
+    get_location(listing_dom)

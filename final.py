@@ -33,7 +33,7 @@ def get_title(dom):    #get the title of the listing
         title=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")  #get the title using xpath
         title=title[0]
         title=title[10:-13]
-        print(title, "title") #slicing to get only the title of the apartment
+        print(title) #slicing to get only the title of the apartment
 
     except Exception as e: #if the title is not found, print the error message
         title = "Title is not available"
@@ -43,7 +43,7 @@ def get_location(dom):  #get the location of the listing
     try:            #try to get the location
         location= dom.xpath("//div[@class='listing-detail-summary__location']/text()")
         location=location[0]
-        print(location, "location")  #print the location
+        print(location)  #print the location
     except Exception as e:      #if the location is not found, print the error message
         location = "Location is not available"
         print(location)
@@ -52,7 +52,7 @@ def get_price(dom):         #get the price of the listing
     try:                    #try to get the price
         price=dom.xpath("//div[@class='listing-detail-summary__price']/text()")
         price =price[0].replace('€', '').replace(',', '').replace('\n', '').strip() #remove the €, comma and new line, retrieving the value
-        print(price,'price')    #printing both the strings
+        print(price)    #printing both the strings
         
     except Exception as e:          #if the price is not found, print the error message
         price = "Price is not available"
@@ -62,7 +62,7 @@ def get_area(dom):         #get the area of the listing
     try:                    #try to get the area
         area=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--surface-area']/text()")
         area=area[0].replace("m²","").replace(" ","")   #remove the m² and space, retrieving the value
-        print(area,'area')
+        print(area)
 
     except Exception as e:      #if the area is not found, print the error message
         area="Area is not available"
@@ -72,7 +72,7 @@ def get_rooms(dom):
     try:
         rooms=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--number-of-rooms']/text()")
         rooms=rooms[0].split(" ")[0]
-        print(rooms,'rooms')
+        print(rooms)
     except Exception as e:
         rooms="Rooms is not available"
         print(rooms)
@@ -81,7 +81,7 @@ def get_interior(dom):              #get the interior status of the listing
     try:
         interior = dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--interior']/text()")
         interior = interior[0]
-        print(interior,'interior')
+        print(interior)
     except  Exception as e:
         interior= "Interior is not available" #if the interior is not found, print the error message
         print(interior)
@@ -91,7 +91,7 @@ def get_description(dom):           #get the description of the listing
     try:
         description = dom.xpath("//div[@class='listing-detail-description__additional listing-detail-description__additional--collapsed']/p/text()")
         description = description[0]
-        print(description,'description')
+        print(description)
     except Exception as e:              #if the description is not found, print the error message
         description= "Description is not available"
         print(description)
@@ -100,7 +100,7 @@ def offered_since(dom):         #get the date since the listing was added
     try:
         offer_since=dom.xpath("//dd[@class='listing-features__description listing-features__description--offered_since']/span/text()")
         offer_since=offer_since[0]
-        print(offer_since,'offer_since')
+        print(offer_since)
     except Exception as e:          #if the date is not found, print the error message
         order_since= "Order since is not available"
         print(order_since)
@@ -109,7 +109,7 @@ def get_availability(dom):          #get the availability of the listing
     try:
         available_from=dom.xpath("//dd[@class='listing-features__description listing-features__description--acceptance']/span/text()")
         available_from=available_from[0].split(" ")[1]      
-        print(available_from,'available_from')
+        print(available_from)
 
     except Exception as e:              #if the availability is not found, print the error message
         print("Not available to book")
@@ -118,7 +118,7 @@ def get_specification(dom):          #get the specification of the listing
     try:                                #try to get the specification
         specifics = dom.xpath("//dd[@class='listing-features__description listing-features__description--specifics']/span/text()")
         specifics = specifics[0]
-        print(specifics,'specifics')
+        print(specifics)
 
     except Exception as e:              #if the specification is not found, print the error message
         specifics="Specifics are not available"
@@ -152,6 +152,17 @@ def get_type(dom):                          #get the type of the listing
         print(type)
 
     except Exception as e:                  #if the type is not found, print the error message
+        type="Type is not available"
+        print(type)
+
+
+def get_construction_type(dom):             #get the construction type of the listing
+    try:                                    #try to get the construction type
+        construction_type=dom.xpath("//dd[@class='listing-features__description listing-features__description--construction_type']/span/text()")
+        construction_type=construction_type[0]
+        print(construction_type)
+
+    except Exception as e:                   #if the construction type is not found, print the error message
         type="Type is not available"
         print(type)
 

@@ -12,16 +12,16 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_type(dom):
+def get_construction_type(dom):
     try:
-        type=dom.xpath("//dd[@class='listing-features__description listing-features__description--dwelling_type']/span/text()")
-        type=type[0]
-        print(type)
+        construction_type=dom.xpath("//dd[@class='listing-features__description listing-features__description--construction_type']/span/text()")
+        construction_type=construction_type[0]
+        print(construction_type)
 
     except Exception as e:
         type="Type is not available"
         print(type)
 
 
-get_type(dom)
+get_construction_type(dom)
 

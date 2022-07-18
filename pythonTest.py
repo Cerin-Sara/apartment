@@ -11,18 +11,24 @@ soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
+# available_from=dom.xpath("//dd[@class='listing-features__description listing-features__description--acceptance']/span/text()")[0].split(" ")[1]      
+# print(available_from)
 
-def get_contact_details(dom):
-    try:
-        contact_details=dom.xpath("//a[@class='agent-summary__agent-contact-request']/@href")[0]
-        contact_details="https://www.pararius.com"+contact_details
-        print(contact_details)
-
-
-    except Exception as e:
-        contact_details="Details of contact is not available"
-        print(contact_details)
+# def get_contact_details(dom):
+#     try:
+#         contact_details=dom.xpath("//a[@class='agent-summary__agent-contact-request']/@href")[0]
+#         contact_details="https://www.pararius.com"+contact_details
+#         print(contact_details)
 
 
-get_contact_details(dom)
+#     except Exception as e:
+#         contact_details="Details of contact is not available"
+#         print(contact_details)
 
+
+# get_contact_details(dom)
+
+
+
+volume= dom.xpath("//dd[@class='listing-features__description listing-features__description--volume']/span/text()")[0].split(" ")[0]
+print(volume)

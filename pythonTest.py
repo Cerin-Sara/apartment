@@ -35,23 +35,39 @@ dom = et.HTML(str(soup))
 #         location = "Location is not available"
 
 #get_location()
-def get_price():
-    try:
-        price=dom.xpath("//div[@class='listing-detail-summary__price']//text()")
-        price_each=price[0]
-        price_each=price_each.replace('\n','')
-        price_each.strip()
-        price_list=price_each.split(',')
-        price_first=price_list[0]
-        price_second=price_list[1]
-        price_first=price_first[-1]
-        price_second=price_second[:3]
-        print(price_first+price_second)
+# def get_price():
+#     try:
+#         price=dom.xpath("//div[@class='listing-detail-summary__price']//text()")
+#         price_each=price[0]
+#         price_each=price_each.replace('\n','')
+#         price_each.strip()
+#         price_list=price_each.split(',')
+#         price_first=price_list[0]
+#         price_second=price_list[1]
+#         price_first=price_first[-1]
+#         price_second=price_second[:3]
+#         print(price_first+price_second)
         
-        price=int(re.search(r'\d+', price_each).group())
+#         price=int(re.search(r'\d+', price_each).group())
         
         
-    except Exception as e:
-        price = "Price is not available"
+#     except Exception as e:
+#         price = "Price is not available"
 
-get_price()
+# get_price()
+
+try:
+        price=dom.xpath("//div[@class='listing-detail-summary__price']/text()")
+        # price_each=price[0] #get the price of the apartment
+        # price_each=price_each.replace('\n','') #remove the new line character
+        # price_each.strip() #removing leading and trailing characters
+        # price_list=price_each.split(',') #splitting and storing in the list
+        # price_first=price_list[0]   #storing the element before ','
+        # price_second=price_list[1]  #storing the element after ','
+        # price_first=price_first[-1] # slicing only the last character
+        # price_second=price_second[:3]   #slicing the first three characters
+        price =price[0].replace('€', '').replace(',', '').replace('\n', '').strip()
+        print(price)    #printing both the strings
+        
+except Exception as e:
+    price = "Price is not available"

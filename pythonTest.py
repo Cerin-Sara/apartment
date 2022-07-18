@@ -11,12 +11,11 @@ page_url="https://www.pararius.com/apartment-for-rent/amsterdam/1b402016/eerste-
 listing_response=requests.get(page_url, headers=header)
 soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
-
-def get_area():
+def get_rooms(dom):
     try:
-        area=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--surface-area']/text()")
-        area=area[0].replace("m²","").replace(" ","")
-        print(area)
-
+        rooms=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--number-of-rooms']/text()")
+        rooms=rooms[0].split(" ")[0]
+        print(rooms)
     except Exception as e:
-        area="Area is not available"
+        rooms="Rooms is not available"
+        

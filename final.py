@@ -64,6 +64,14 @@ def get_area(dom):         #get the area of the listing
     except Exception as e:      #if the area is not found, print the error message
         area="Area is not available"
 
+def get_rooms(dom):
+    try:
+        rooms=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--number-of-rooms']/text()")
+        rooms=rooms[0].split(" ")[0]
+        print(rooms)
+    except Exception as e:
+        rooms="Rooms is not available"
+
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
@@ -72,3 +80,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_location(listing_dom)   #calling the get_location() to execute the scraping of location
     get_price(listing_dom)   #calling the get_price() to execute the scraping of price
     get_area(listing_dom)   #calling the get_area() to execute the scraping of area
+    get_rooms(listing_dom)   #calling the get_rooms() to execute the scraping of rooms

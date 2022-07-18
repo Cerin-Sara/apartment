@@ -12,15 +12,15 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_details_of_garden(dom):
+def get_details_of_storage(dom):
     try:
-        garden=dom.xpath("listing-features__description listing-features__description--garden")[0]
-        print(garden)
+        storage=dom.xpath("//dd[@class='listing-features__description listing-features__description--storage']/span/text()")[0]
+        print(storage)
 
     except Exception as e:
-        garden="Details of garden is not available"
-        print(garden)
+        storage="Details of storage is not available"
+        print(storage)
 
 
-get_details_of_garden(dom)
+get_details_of_storage(dom)
 

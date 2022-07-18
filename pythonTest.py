@@ -12,15 +12,15 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_bathrooms(dom):
+def get_no_floors(dom):
     try:
-        bathrooms=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_bathrooms']/span/text()")[0]
-        print(bathrooms)
+        no_floors=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_floors']/span/text()")[0]
+        print(no_floors)
 
     except Exception as e:
-        bathrooms="Number of bathrooms is not available"
-        print(bathrooms)
+        no_floors="Number of floors is not available"
+        print(no_floors)
 
 
-get_bathrooms(dom)
+get_no_floors(dom)
 

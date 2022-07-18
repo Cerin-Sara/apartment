@@ -194,14 +194,24 @@ def get_bedrooms(dom):                      #get the number of bedrooms of the l
         bedrooms="Number of bedrooms is not available"
         print(bedrooms)
 
-def get_bathrooms(dom):
-    try:
+def get_bathrooms(dom):                     #get the number of bathrooms of the listing
+    try:                                    #try to get the number of bathrooms
         bathrooms=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_bathrooms']/span/text()")[0]
         print(bathrooms)
 
-    except Exception as e:
+    except Exception as e:                   #if the number of bathrooms is not found, print the error message
         bathrooms="Number of bathrooms is not available"
         print(bathrooms)
+
+def get_no_floors(dom):                       #get the number of floors of the listing
+    try:                                      #try to get the number of floors
+        no_floors=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_floors']/span/text()")[0]
+        print(no_floors)
+
+    except Exception as e:                      #if the number of floors is not found, print the error message
+        no_floors="Number of floors is not available"
+        print(no_floors)
+
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -225,3 +235,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_location_type(listing_dom)   #calling the get_location_type() to execute the scraping of location type
     get_bedrooms(listing_dom)   #calling the get_bedrooms() to execute the scraping of number of bedrooms
     get_bathrooms(listing_dom)   #calling the get_bathrooms() to execute the scraping of number of bathrooms
+    get_no_floors(listing_dom)   #calling the get_no_floors() to execute the scraping of number of floors

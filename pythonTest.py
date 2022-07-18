@@ -9,3 +9,12 @@ page_url="https://www.pararius.com/apartment-for-rent/amsterdam/1b402016/eerste-
 listing_response=requests.get(page_url, headers=header)
 soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
+
+# def get_availability(dom):
+#     try:
+#         available_from=dom.xpath("//dd[@class='listing-features__description listing-features__description--acceptance']/span/text()")
+#         available_from=available_from[0].split(" ")[1]
+#         print(available_from)
+
+#     except Exception as e:
+#         print("Not available to book")

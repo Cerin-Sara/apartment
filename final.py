@@ -145,6 +145,16 @@ def get_volume(dom):                       #get the volume of the listing
         volume="Volume is not available"
         print(volume)
 
+def get_type(dom):                          #get the type of the listing
+    try:                                    #try to get the type
+        type=dom.xpath("//dd[@class='listing-features__description listing-features__description--dwelling_type']/span/text()")
+        type=type[0]
+        print(type)
+
+    except Exception as e:                  #if the type is not found, print the error message
+        type="Type is not available"
+        print(type)
+
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
@@ -161,3 +171,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_specification(listing_dom)   #calling the get_specification() to execute the scraping of specification
     get_upkeep_status(listing_dom)   #calling the get_upkeep_status() to execute the scraping of upkeeping status
     get_volume(listing_dom)   #calling the get_volume() to execute the scraping of volume
+    get_type(listing_dom)   #calling the get_type() to execute the scraping of type

@@ -33,7 +33,7 @@ def get_title(dom):    #get the title of the listing
         title=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")  #get the title using xpath
         title=title[0]
         title=title[10:-13]
-        print(title) #slicing to get only the title of the apartment
+        print(title, "title") #slicing to get only the title of the apartment
 
     except Exception as e: #if the title is not found, print the error message
         title = "Title is not available"
@@ -43,7 +43,7 @@ def get_location(dom):  #get the location of the listing
     try:            #try to get the location
         location= dom.xpath("//div[@class='listing-detail-summary__location']/text()")
         location=location[0]
-        print(location)  #print the location
+        print(location, "location")  #print the location
     except Exception as e:      #if the location is not found, print the error message
         location = "Location is not available"
         print(location)
@@ -52,7 +52,7 @@ def get_price(dom):         #get the price of the listing
     try:                    #try to get the price
         price=dom.xpath("//div[@class='listing-detail-summary__price']/text()")
         price =price[0].replace('€', '').replace(',', '').replace('\n', '').strip() #remove the €, comma and new line, retrieving the value
-        print(price)    #printing both the strings
+        print(price,'price')    #printing both the strings
         
     except Exception as e:          #if the price is not found, print the error message
         price = "Price is not available"
@@ -62,7 +62,7 @@ def get_area(dom):         #get the area of the listing
     try:                    #try to get the area
         area=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--surface-area']/text()")
         area=area[0].replace("m²","").replace(" ","")   #remove the m² and space, retrieving the value
-        print(area)
+        print(area,'area')
 
     except Exception as e:      #if the area is not found, print the error message
         area="Area is not available"
@@ -72,7 +72,7 @@ def get_rooms(dom):
     try:
         rooms=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--number-of-rooms']/text()")
         rooms=rooms[0].split(" ")[0]
-        print(rooms)
+        print(rooms,'rooms')
     except Exception as e:
         rooms="Rooms is not available"
         print(rooms)
@@ -81,7 +81,7 @@ def get_interior(dom):              #get the interior status of the listing
     try:
         interior = dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--interior']/text()")
         interior = interior[0]
-        print(interior)
+        print(interior,'interior')
     except  Exception as e:
         interior= "Interior is not available" #if the interior is not found, print the error message
         print(interior)
@@ -91,7 +91,7 @@ def get_description(dom):           #get the description of the listing
     try:
         description = dom.xpath("//div[@class='listing-detail-description__additional listing-detail-description__additional--collapsed']/p/text()")
         description = description[0]
-        print(description)
+        print(description,'description')
     except Exception as e:              #if the description is not found, print the error message
         description= "Description is not available"
         print(description)
@@ -100,7 +100,7 @@ def offered_since(dom):         #get the date since the listing was added
     try:
         offer_since=dom.xpath("//dd[@class='listing-features__description listing-features__description--offered_since']/span/text()")
         offer_since=offer_since[0]
-        print(offer_since)
+        print(offer_since,'offer_since')
     except Exception as e:          #if the date is not found, print the error message
         order_since= "Order since is not available"
         print(order_since)
@@ -109,7 +109,7 @@ def get_availability(dom):          #get the availability of the listing
     try:
         available_from=dom.xpath("//dd[@class='listing-features__description listing-features__description--acceptance']/span/text()")
         available_from=available_from[0].split(" ")[1]      
-        print(available_from)
+        print(available_from,'available_from')
 
     except Exception as e:              #if the availability is not found, print the error message
         print("Not available to book")
@@ -118,12 +118,22 @@ def get_specification(dom):          #get the specification of the listing
     try:                                #try to get the specification
         specifics = dom.xpath("//dd[@class='listing-features__description listing-features__description--specifics']/span/text()")
         specifics = specifics[0]
-        print(specifics)
+        print(specifics,'specifics')
 
     except Exception as e:              #if the specification is not found, print the error message
         specifics="Specifics are not available"
         print(specifics)
 
+
+def get_upkeep_status(dom):             #get the upkeeping status of the listing
+    try:                                #try to get the upkeeping status
+        upkeep=dom.xpath("//dd[@class='listing-features__description listing-features__description--upkeep']/span/text()")
+        upkeep=upkeep[0]
+        print(upkeep,'upkeep')
+
+    except Exception as e:              #if the upkeeping status is not found, print the error message
+        upkeep = "Upkeep is not available"
+        print(upkeep)
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -139,3 +149,4 @@ for list_url in listing_url: #get the each link from the listing_url
     offered_since(listing_dom)   #calling the ordered_since() to execute the scraping of order_since
     get_availability(listing_dom)   #calling the get_availability() to execute the scraping of availability
     get_specification(listing_dom)   #calling the get_specification() to execute the scraping of specification
+    get_upkeep_status(listing_dom)   #calling the get_upkeep_status() to execute the scraping of upkeeping status

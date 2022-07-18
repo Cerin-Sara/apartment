@@ -72,6 +72,14 @@ def get_rooms(dom):
     except Exception as e:
         rooms="Rooms is not available"
 
+def get_interior(dom):              #get the interior status of the listing
+    try:
+        interior = dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--interior']/text()")
+        interior = interior[0]
+        print(interior)
+    except  Exception as e:
+        interior= "Interior is not available" #if the interior is not found, print the error message
+
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
@@ -81,3 +89,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_price(listing_dom)   #calling the get_price() to execute the scraping of price
     get_area(listing_dom)   #calling the get_area() to execute the scraping of area
     get_rooms(listing_dom)   #calling the get_rooms() to execute the scraping of rooms
+    get_interior(listing_dom)   #calling the get_interior() to execute the scraping of interior

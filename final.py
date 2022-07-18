@@ -31,8 +31,9 @@ for apge_url in pages_url:     #for each page url, get the listing url
 def get_title(dom):    #get the title of the listing
     try:                #try to get the title
         title=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")  #get the title using xpath
-        title_each=title[0]
-        print(title_each[10:-13]) #slicing to get only the title of the apartment
+        title=title[0]
+        title=title[10:-13]
+        print(title) #slicing to get only the title of the apartment
 
     except Exception as e: #if the title is not found, print the error message
         title = "Title is not available"
@@ -40,7 +41,8 @@ def get_title(dom):    #get the title of the listing
 def get_location(dom):  #get the location of the listing
     try:            #try to get the location
         location= dom.xpath("//div[@class='listing-detail-summary__location']/text()")
-        print(location[0])  #print the location
+        location=location[0]
+        print(location)  #print the location
     except Exception as e:      #if the location is not found, print the error message
         location = "Location is not available"
 
@@ -53,6 +55,15 @@ def get_price(dom):         #get the price of the listing
     except Exception as e:          #if the price is not found, print the error message
         price = "Price is not available"
 
+def get_area(dom):         #get the area of the listing
+    try:                    #try to get the area
+        area=dom.xpath("//li[@class='illustrated-features__item illustrated-features__item--surface-area']/text()")
+        area=area[0].replace("m²","").replace(" ","")   #remove the m² and space, retrieving the value
+        print(area)
+
+    except Exception as e:      #if the area is not found, print the error message
+        area="Area is not available"
+
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
     listing_soup = BeautifulSoup(listing_response.text,'lxml')
@@ -60,3 +71,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_title(listing_dom)  #calling the get_title() to execute the scraping of title
     get_location(listing_dom)   #calling the get_location() to execute the scraping of location
     get_price(listing_dom)   #calling the get_price() to execute the scraping of price
+    get_area(listing_dom)   #calling the get_area() to execute the scraping of area

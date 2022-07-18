@@ -163,7 +163,7 @@ def get_construction_type(dom):             #get the construction type of the li
         print(construction_type)
 
     except Exception as e:                   #if the construction type is not found, print the error message
-        construction_type="Type is not available"
+        construction_type="Construction type is not available"
         print(construction_type)
 
 def get_constructed_year(dom):               #get the constructed year of the listing
@@ -173,7 +173,7 @@ def get_constructed_year(dom):               #get the constructed year of the li
         print(constructed_year)
 
     except Exception as e:                  #if the constructed year is not found, print the error message
-        constructed_year="Type is not available"
+        constructed_year="Constructed year is not available"
         print(constructed_year)
 
 def get_location_type(dom):                 #get the location type of the listing
@@ -184,6 +184,24 @@ def get_location_type(dom):                 #get the location type of the listin
     except Exception as e:                  #if the location type is not found, print the error message
         location_type="Location type is not available"
         print(location_type)
+
+def get_bedrooms(dom):                      #get the number of bedrooms of the listing
+    try:                                    #try to get the number of bedrooms
+        bedrooms=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_bedrooms']/span/text()")[0]
+        print(bedrooms)
+
+    except Exception as e:                  #if the number of bedrooms is not found, print the error message
+        bedrooms="Number of bedrooms is not available"
+        print(bedrooms)
+
+def get_bathrooms(dom):
+    try:
+        bathrooms=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_bathrooms']/span/text()")[0]
+        print(bathrooms)
+
+    except Exception as e:
+        bathrooms="Number of bathrooms is not available"
+        print(bathrooms)
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -205,3 +223,5 @@ for list_url in listing_url: #get the each link from the listing_url
     get_construction_type(listing_dom)   #calling the get_construction_type() to execute the scraping of construction type
     get_constructed_year(listing_dom)   #calling the get_constructed_year() to execute the scraping of constructed year
     get_location_type(listing_dom)   #calling the get_location_type() to execute the scraping of location type
+    get_bedrooms(listing_dom)   #calling the get_bedrooms() to execute the scraping of number of bedrooms
+    get_bathrooms(listing_dom)   #calling the get_bathrooms() to execute the scraping of number of bathrooms

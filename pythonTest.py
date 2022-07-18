@@ -12,15 +12,15 @@ dom = et.HTML(str(soup))
 
 #****************OFFERED SINCE****************
 
-def get_location_type(dom):
+def get_bathrooms(dom):
     try:
-        location_type=dom.xpath("//dd[@class='listing-features__description listing-features__description--situations']/span/text()")[0]
-        print(location_type)
+        bathrooms=dom.xpath("//dd[@class='listing-features__description listing-features__description--number_of_bathrooms']/span/text()")[0]
+        print(bathrooms)
 
     except Exception as e:
-        location_type="Location type is not available"
-        print(location_type)
+        bathrooms="Number of bathrooms is not available"
+        print(bathrooms)
 
 
-get_location_type(dom)
+get_bathrooms(dom)
 

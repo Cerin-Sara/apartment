@@ -37,6 +37,7 @@ def get_title(dom):    #get the title of the listing
 
     except Exception as e: #if the title is not found, print the error message
         title = "Title is not available"
+        print(title)
 
 def get_location(dom):  #get the location of the listing
     try:            #try to get the location
@@ -45,6 +46,7 @@ def get_location(dom):  #get the location of the listing
         print(location)  #print the location
     except Exception as e:      #if the location is not found, print the error message
         location = "Location is not available"
+        print(location)
 
 def get_price(dom):         #get the price of the listing
     try:                    #try to get the price
@@ -54,6 +56,7 @@ def get_price(dom):         #get the price of the listing
         
     except Exception as e:          #if the price is not found, print the error message
         price = "Price is not available"
+        print(price)
 
 def get_area(dom):         #get the area of the listing
     try:                    #try to get the area
@@ -63,6 +66,7 @@ def get_area(dom):         #get the area of the listing
 
     except Exception as e:      #if the area is not found, print the error message
         area="Area is not available"
+        print(area)
 
 def get_rooms(dom):
     try:
@@ -71,6 +75,7 @@ def get_rooms(dom):
         print(rooms)
     except Exception as e:
         rooms="Rooms is not available"
+        print(rooms)
 
 def get_interior(dom):              #get the interior status of the listing
     try:
@@ -79,6 +84,7 @@ def get_interior(dom):              #get the interior status of the listing
         print(interior)
     except  Exception as e:
         interior= "Interior is not available" #if the interior is not found, print the error message
+        print(interior)
 
 
 def get_description(dom):           #get the description of the listing
@@ -88,6 +94,16 @@ def get_description(dom):           #get the description of the listing
         print(description)
     except Exception as e:              #if the description is not found, print the error message
         description= "Description is not available"
+        print(description)
+
+def ordered_since(dom):
+    try:
+        order_since=dom.xpath("//dd[@class='listing-features__description listing-features__description--offered_since']/span/text()")
+        order_since=order_since[0]
+        print(order_since)
+    except Exception as e:
+        order_since= "Order since is not available"
+        print(order_since)
 
 for list_url in listing_url: #get the each link from the listing_url
     listing_response=requests.get(list_url, headers=header)
@@ -100,3 +116,4 @@ for list_url in listing_url: #get the each link from the listing_url
     get_rooms(listing_dom)   #calling the get_rooms() to execute the scraping of rooms
     get_interior(listing_dom)   #calling the get_interior() to execute the scraping of interior
     get_description(listing_dom)   #calling the get_description() to execute the scraping of description
+    ordered_since(listing_dom)   #calling the ordered_since() to execute the scraping of order_since

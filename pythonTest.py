@@ -9,12 +9,3 @@ page_url="https://www.pararius.com/apartment-for-rent/amsterdam/1b402016/eerste-
 listing_response=requests.get(page_url, headers=header)
 soup = BeautifulSoup(listing_response.text,'lxml')
 dom = et.HTML(str(soup))
-
-# def get_description(dom):
-#     try:
-#         description = dom.xpath("//div[@class='listing-detail-description__additional listing-detail-description__additional--collapsed']/p/text()")
-#         description = description[0]
-#         print(description)
-#     except Exception as e:
-#         description= "Description is not available"
-

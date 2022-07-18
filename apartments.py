@@ -20,7 +20,9 @@ while i <23:
     
     #dom = et.HTML(str(soup))
     dom = et.HTML(str(soup))
-    link_to_each_house=[]
+    
+    all_house_url_in_a_page=[]
+    all_house_url=[]
     try:
         house_url_list=dom.xpath("//h2[@class='listing-search-item__title']/a/@href")
         #house_list=soup.find_all('li',class_='search-list__item search-list__item--listing').text.strip()
@@ -29,22 +31,21 @@ while i <23:
         #print(house_url_list)
         n=len(house_url_list)
         for j in range(n):
-            house_url=house_url_list[j]
             #print(house_url)
-            house_url="https://www.pararius.com"+house_url
-            title_text=house_url.find_all('h1',class_="listing-detail-summary__title").text()
-            print(title_text)
+            house_url="https://www.pararius.com"+house_url_list[j]
+            all_house_url_in_a_page.append(house_url)
+            title_text=dom.xpath("//h1[@class='listing-detail-summary__title']/text()")
+            print(title_text,"title",i,j)
+            location_text=dom.xpath("//div[@class='listing-detail-summary__location']/text()")
+            print(location_text,"location",i,j)
             # link_to_each_house.append(house_url) # this is for the whole list of houses
-        # *****************************************print(house_url)  # this is for each house
-        
-
-            
+        # *****************************************print(house_url)  # this is for each house            
             #house_url_list[j]=house_url
         # "https://www.pararius.com"+house_url_list[0]
         # print(link_to_each_house)
+        all_house_url.append(all_house_url_in_a_page)
     except Exception as e:
-        house_list = "houselist not available"
-
+        house_list = "House-list is not available"
     i=i+1
 
 

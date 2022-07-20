@@ -24,7 +24,7 @@ def get_listing_url(page_url):  #get the url of the listing
         listing_url.append("https://www.pararius.com"+page_link)
     #print(listing_url)
 
-for apge_url in pages_url:     #for each page url, get the listing url
+for page_url in pages_url:     #for each page url, get the listing url
     get_listing_url(page_url)
     time.sleep(random.randint(1,3))
 

@@ -11,14 +11,21 @@ base_url= "https://www.pararius.com/apartments/amsterdam/page-" #base url for th
 pages_url=[]    #list to store the url of every page
 listing_url=[]  #list to store the url of every apartments
 
+def get_dom(page_url):
+    response = requests.get(page_url, headers=header)
+    soup = BeautifulSoup(response.text,'lxml')
+    dom = et.HTML(str(soup))
+    return dom
+
 for i in range (1,23): #generate all the pages url
     page_url=base_url + str(i)
     pages_url.append(page_url) #append the page url to the list
 
 def get_listing_url(page_url):  #get the url of the listing
-    response = requests.get(page_url, headers=header)
-    soup = BeautifulSoup(response.text,'lxml')
-    dom = et.HTML(str(soup))
+    # response = requests.get(page_url, headers=header)
+    # soup = BeautifulSoup(response.text,'lxml')
+    # dom = et.HTML(str(soup))
+    dom = get_dom(page_url)
     page_link_list=dom.xpath('//a[@class="listing-search-item__link listing-search-item__link--title"]/@href')
     for page_link in page_link_list:
         listing_url.append("https://www.pararius.com"+page_link)

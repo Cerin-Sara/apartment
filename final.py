@@ -11,8 +11,8 @@ base_url= "https://www.pararius.com/apartments/amsterdam/page-" #base url for th
 pages_url=[]    #list to store the url of every page
 listing_url=[]  #list to store the url of every apartments
 
-def get_dom(page_url):
-    response = requests.get(page_url, headers=header)
+def get_dom(the_url):
+    response = requests.get(the_url, headers=header)
     soup = BeautifulSoup(response.text,'lxml')
     dom = et.HTML(str(soup))
     return dom
@@ -22,14 +22,10 @@ for i in range (1,23): #generate all the pages url
     pages_url.append(page_url) #append the page url to the list
 
 def get_listing_url(page_url):  #get the url of the listing
-    # response = requests.get(page_url, headers=header)
-    # soup = BeautifulSoup(response.text,'lxml')
-    # dom = et.HTML(str(soup))
     dom = get_dom(page_url)
     page_link_list=dom.xpath('//a[@class="listing-search-item__link listing-search-item__link--title"]/@href')
     for page_link in page_link_list:
         listing_url.append("https://www.pararius.com"+page_link)
-    #print(listing_url)
 
 for page_url in pages_url:     #for each page url, get the listing url
     get_listing_url(page_url)
@@ -264,14 +260,12 @@ def get_contact_details(dom):                   #get the contact details of the 
         print(contact_details)
     return contact_details
 
-with open('pararius.csv','w',newline='') as f:
+with open('apartments.csv','w',newline='') as f:
     thewriter=writer(f)
-    heading=['TITLE','LOCATION','PRICE PER MONTH','AREA IN m²','NUMBER OF ROOMS','INTERIOR','DESCRIPTION','OFFERED SINCE','AVAILABILITY','SPECIFICATION','UPKEEP STATUS','VOLUME','TYPE','CONSTRUCTION TYPE','CONSTRUCTION YEAR','LOCATION TYPE','NUMBER OF BEDROOMS','NUMBER OF BATHROOMS','NUMBER OF FLOORS','DETAILS OF BALCONY','DETAILS OF GARDEN','DETAILS OF STORAGE','DESCRIPTION OF STORAGE','GARAGE','CONTACT DETAILS']
+    heading=['URL','TITLE','LOCATION','PRICE PER MONTH','AREA IN m²','NUMBER OF ROOMS','INTERIOR','DESCRIPTION','OFFERED SINCE','AVAILABILITY','SPECIFICATION','UPKEEP STATUS','VOLUME','TYPE','CONSTRUCTION TYPE','CONSTRUCTION YEAR','LOCATION TYPE','NUMBER OF BEDROOMS','NUMBER OF BATHROOMS','NUMBER OF FLOORS','DETAILS OF BALCONY','DETAILS OF GARDEN','DETAILS OF STORAGE','DESCRIPTION OF STORAGE','GARAGE','CONTACT DETAILS']
     thewriter.writerow(heading)
     for list_url in listing_url: #get the each link from the listing_url
-        listing_response=requests.get(list_url, headers=header)
-        listing_soup = BeautifulSoup(listing_response.text,'lxml')
-        listing_dom = et.HTML(str(listing_soup))
+        listing_dom=get_dom(list_url)
         title=get_title(listing_dom)  #calling the get_title() to execute the scraping of title
         location=get_location(listing_dom)   #calling the get_location() to execute the scraping of location
         price=get_price(listing_dom)   #calling the get_price() to execute the scraping of price
@@ -298,5 +292,5 @@ with open('pararius.csv','w',newline='') as f:
         garage=is_garage_present(listing_dom)   #calling the is_garage_present() to execute the scraping of garage
         contact=get_contact_details(listing_dom)   #calling the get_contact_details() to execute the scraping of contact details
         print("\n\n\n\n")
-        information =[title,location,price,area,rooms,interior,description,offer,availability,specification,upkeep_status,volume,type,construction_type,constructed_year,location_type,bedrooms,bathrooms,floors,balcony_details,garden_details,storage_details,storage_description,garage,contact]
+        information =[list_url,title,location,price,area,rooms,interior,description,offer,availability,specification,upkeep_status,volume,type,construction_type,constructed_year,location_type,bedrooms,bathrooms,floors,balcony_details,garden_details,storage_details,storage_description,garage,contact]
         thewriter.writerow(information)
